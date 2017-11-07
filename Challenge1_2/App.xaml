@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:converters="clr-namespace:Challenge1_2.Common.Converters;assembly=Challenge1_2"
+    x:Class="Challenge1_2.App">
+    
+	<Application.Resources>
+		<ResourceDictionary>
+
+            <converters:IconToUrlConverter x:Key="IconToUrlConverter"/>
+            <converters:BooleanToFalseConverter x:Key="BooleanToFalseConverter"/>
+            <converters:ZeroToPlaceholderConverter x:Key="ZeroToPlaceholderConverter"/>
+            <converters:UpdatedLabelConverter x:Key="UpdatedLabelConverter"/>
+            <converters:ForecastTimeLabelConverter x:Key="ForecastTimeLabelConverter"/>
+            <converters:CharacterLabelConverter x:Key="CharacterLabelConverter"/>
+            <converters:TempConverter x:Key="TempConverter"/>
+            
+            <Color x:Key="AppBaseColor">#003366</Color>
+            <Color x:Key="AppAccentColor">#00BFFF</Color>
+
+        </ResourceDictionary>
+	</Application.Resources>
+</Application>
