@@ -11,13 +11,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:touchscreenBlocksFocus">true</item>
         <item name="android:keyboardNavigationCluster">true</item>
-        <item name="android:windowBackground">@drawable/icon</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 	
-
-	<!--<style name="MainTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/imagescreen</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-	</style>-->
 </resources>

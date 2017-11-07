@@ -6,7 +6,7 @@ namespace Challenge1_2
 	public partial class MainPage : ContentPage
 	{
 
-        bool btn;
+        
 
         public MainPage()
 		{
@@ -18,22 +18,18 @@ namespace Challenge1_2
 			BindingContext = App.ViewModel;
 
 			if (App.ViewModel.NeedsRefresh) 
-                await App.ViewModel.RefreshCurrentConditionsAsync(btn);
+                await App.ViewModel.RefreshCurrentConditionsAsync();
             
 			base.OnAppearing();
 		}
 
-        async void Handle_Clicked_F(object sender, EventArgs e)
+        void Handle_Clicked_F(object sender, EventArgs e)
         {
-            btn = true;
-            await App.ViewModel.RefreshCurrentConditionsAsync(btn);
             temp.Text = "F";
         }
 
-        async void Handle_Clicked_C(object sender, EventArgs e)
+        void Handle_Clicked_C(object sender, EventArgs e)
         {
-            btn = false;
-            await App.ViewModel.RefreshCurrentConditionsAsync(btn);
             temp.Text = "C";
         }
     }

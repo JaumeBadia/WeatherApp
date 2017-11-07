@@ -129,7 +129,7 @@ namespace Challenge1_2
             IsBusy = false;
         }
 
-        public async Task RefreshCurrentConditionsAsync(bool btn)
+        public async Task RefreshCurrentConditionsAsync()
         {
 
             IsBusy = true;
@@ -157,12 +157,8 @@ namespace Challenge1_2
             CurrentConditions.Id = results.Id;
             CurrentConditions.MaxTemperature = results.MaxTemperature;
             CurrentConditions.MinTemperature = results.MinTemperature;
-
-            if (btn == false)
-                CurrentConditions.Temperature = (results.Temperature - 32) * 5 / 9;
-            else
-                CurrentConditions.Temperature = results.Temperature;
-
+            CurrentConditions.Temperature = results.Temperature;
+            CurrentConditions.Temperature = results.Temperature;
             CurrentConditions.Humidity = results.Humidity;
             CurrentConditions.TimeStamp = results.TimeStamp.ToLocalTime();
 
