@@ -10,6 +10,8 @@ namespace Challenge1_2
 {
     public class MainViewModel : ObservableBase
     {
+        
+
         #region constructor
 
         public MainViewModel()
@@ -18,8 +20,15 @@ namespace Challenge1_2
             NeedsRefresh = true;
             LocationType = LocationType.City;
             CityName = "Amsterdam";
-            CountryCode = "HL";
-            CurrentConditions = new WeatherInformation();
+            CountryCode = "NL";
+            CurrentConditionsResponse = new WeatherInformation.ResponseWeather();
+            CurrentConditionsCoord = new WeatherInformation.Coord();
+            //CurrentConditionsWeather = new List<WeatherInformation.Weather>();
+            CurrentConditionsWeather = new WeatherInformation.Weather();
+            CurrentConditionsMain = new WeatherInformation.Main();
+            CurrentConditionsWind = new WeatherInformation.Wind();
+            CurrentConditionsClouds = new WeatherInformation.Clouds();
+            CurrentConditionsSys = new WeatherInformation.Sys();
         }
 
         #endregion
@@ -54,17 +63,66 @@ namespace Challenge1_2
             set { SetProperty(ref _countryCode, value); }
         }
 
-        WeatherInformation _currentConditions;
-        public WeatherInformation CurrentConditions
+        WeatherInformation.ResponseWeather _currentConditionsResponse;
+        public WeatherInformation.ResponseWeather CurrentConditionsResponse
         {
-            get { return _currentConditions; }
-            set { SetProperty(ref _currentConditions, value); }
+            get { return _currentConditionsResponse; }
+            set { SetProperty(ref _currentConditionsResponse, value); }
+        }
+
+        WeatherInformation.Coord _currentConditionsCoord;
+        public WeatherInformation.Coord CurrentConditionsCoord
+        {
+            get { return _currentConditionsCoord; }
+            set { SetProperty(ref _currentConditionsCoord, value); }
+        }
+
+        /*List<WeatherInformation.Weather> _currentConditionsWeather;
+        public List<WeatherInformation.Weather> CurrentConditionsWeather
+        {
+            get { return _currentConditionsWeather; }
+            set { SetProperty(ref _currentConditionsWeather, value); }
+        }*/
+
+        WeatherInformation.Weather _currentConditionsWeather;
+        public WeatherInformation.Weather CurrentConditionsWeather
+        {
+            get { return _currentConditionsWeather; }
+            set { SetProperty(ref _currentConditionsWeather, value); }
+        }
+
+        WeatherInformation.Main _currentConditionsMain;
+        public WeatherInformation.Main CurrentConditionsMain
+        {
+            get { return _currentConditionsMain; }
+            set { SetProperty(ref _currentConditionsMain, value); }
+        }
+
+        WeatherInformation.Wind _currentConditionsWind;
+        public WeatherInformation.Wind CurrentConditionsWind
+        {
+            get { return _currentConditionsWind; }
+            set { SetProperty(ref _currentConditionsWind, value); }
+        }
+
+        WeatherInformation.Clouds _currentConditionsClouds;
+        public WeatherInformation.Clouds CurrentConditionsClouds
+        {
+            get { return _currentConditionsClouds; }
+            set { SetProperty(ref _currentConditionsClouds, value); }
+        }
+
+        WeatherInformation.Sys _currentConditionsSys;
+        public WeatherInformation.Sys CurrentConditionsSys
+        {
+            get { return _currentConditionsSys; }
+            set { SetProperty(ref _currentConditionsSys, value); }
         }
 
         bool _needsRefresh;
         public bool NeedsRefresh
         {
-            get { return _needsRefresh || string.IsNullOrEmpty(_currentConditions.Conditions); }
+            get { return _needsRefresh || string.IsNullOrEmpty(_currentConditionsResponse.name); }
             set { SetProperty(ref _needsRefresh, value); }
         }
 
@@ -82,14 +140,15 @@ namespace Challenge1_2
             set { SetProperty(ref _location, value); }
         }
 
-        ObservableCollection<WeatherInformation> _forecast;
-        public ObservableCollection<WeatherInformation> Forecast
+        ObservableCollection<WeatherInformation.ResponseWeather> _forecast;
+
+        public ObservableCollection<WeatherInformation.ResponseWeather> Forecast
         {
             get
             {
                 if (_forecast == null)
                 {
-                    _forecast = new ObservableCollection<WeatherInformation>();
+                    _forecast = new ObservableCollection<WeatherInformation.ResponseWeather>();
                 }
                 return _forecast;
             }
@@ -103,7 +162,7 @@ namespace Challenge1_2
             IsBusy = true;
             NeedsRefresh = false;
 
-            List<WeatherInformation> results = null;
+            List<WeatherInformation.ResponseWeather> results = null;
 
             Forecast.Clear();
 
@@ -131,36 +190,37 @@ namespace Challenge1_2
 
         public async Task RefreshCurrentConditionsAsync()
         {
-
+            
             IsBusy = true;
             NeedsRefresh = false;
 
-            WeatherInformation results = null;
+            WeatherInformation.ResponseWeather resultsResponse = null;
 
             switch (LocationType)
             {
                 case LocationType.Location:
                     if (Location == null)
                         Location = await LocationHelper.GetCurrentLocationAsync();
-                    results = await WeatherHelper.GetCurrentConditionsAsync(Location.Latitude, Location.Longitude);
+                    resultsResponse = await WeatherHelper.GetCurrentConditionsAsync(Location.Latitude, Location.Longitude);
                     break;
 
                 case LocationType.City:
-                    results = await WeatherHelper.GetCurrentConditionsAsync(CityName, CountryCode);
+                    resultsResponse = await WeatherHelper.GetCurrentConditionsAsync(CityName, CountryCode);
                     break;
             }
 
-            CurrentConditions.Conditions = results.Conditions;
-            CurrentConditions.Description = results.Description;
-            CurrentConditions.DisplayName = results.DisplayName;
-            CurrentConditions.Icon = results.Icon;
-            CurrentConditions.Id = results.Id;
-            CurrentConditions.MaxTemperature = results.MaxTemperature;
-            CurrentConditions.MinTemperature = results.MinTemperature;
-            CurrentConditions.Temperature = results.Temperature;
-            CurrentConditions.Temperature = results.Temperature;
-            CurrentConditions.Humidity = results.Humidity;
-            CurrentConditions.TimeStamp = results.TimeStamp.ToLocalTime();
+            CurrentConditionsWeather.main = resultsResponse.weather[0].main;
+            CurrentConditionsWeather.description = resultsResponse.weather[0].description;
+            //CurrentConditionsWeather[0].icon = resultsResponse.weather[0].icon;
+            CurrentConditionsWeather.icon = resultsResponse.weather[0].icon;
+            CurrentConditionsResponse.name = resultsResponse.name;
+            //CurrentConditionsResponse.weather.Contains() = resultsWeather;
+            CurrentConditionsResponse.id = resultsResponse.id;
+            CurrentConditionsMain.temp_max = resultsResponse.main.temp_max;
+            CurrentConditionsMain.temp_min = resultsResponse.main.temp_min;
+            CurrentConditionsMain.temp = resultsResponse.main.temp;
+            //CurrentConditions.Humidity = results.Humidity;
+            CurrentConditionsResponse.dt = resultsResponse.dt;
 
             IsBusy = false;
         }

@@ -21,35 +21,72 @@
         </Grid.ColumnDefinitions>
         
         <Label Grid.ColumnSpan="2" 
-            Grid.Row="1" 
-            Margin="0,30,30,0" 
-            VerticalOptions="Start" 
+            Grid.Row="1"
+            Margin="0,0,30,0" 
+            VerticalOptions="Center" 
             HorizontalOptions="Center"
-            Text="{Binding CurrentConditions.DisplayName}"
+            Text="{Binding CurrentConditionsResponse.name}"
             FontSize="Medium"/>
          
-        <StackLayout Grid.ColumnSpan="2" Grid.Row="2" BindingContext="{Binding}" HorizontalOptions="Center" VerticalOptions="Start" Orientation="Horizontal">
+        <StackLayout Grid.ColumnSpan="2" 
+            Grid.Row="2" 
+            BindingContext="{Binding}" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Start" 
+            Orientation="Horizontal">
+            
             <Image VerticalOptions="Center" 
                 HorizontalOptions="End" 
                 Aspect="Fill" 
                 HeightRequest="100" 
                 WidthRequest="100" 
-                Source="{Binding CurrentConditions.Icon, Converter={StaticResource IconToUrlConverter}}" />
-            <Label Text="{Binding CurrentConditions.Temperature, Converter={StaticResource ZeroToPlaceholderConverter}}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="64"/>
-            <Label Text="°" FontSize="64"/>
-            <Label x:Name="temp" Text="C" VerticalOptions="Center" FontSize="36"/>
+                Source="{Binding CurrentConditionsWeather.icon , Converter={StaticResource IconToUrlConverter}}" />
+            <Label Text="{Binding CurrentConditionsMain.temp, Converter={StaticResource ZeroToPlaceholderConverter}}" 
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" 
+                FontSize="64"/>
+            <Label Text="°" 
+                FontSize="64"/>
+            <Label x:Name="temp" 
+                Text="C" 
+                VerticalOptions="Center" 
+                FontSize="32"/>
+            
         </StackLayout>
 
-        <!--<StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
-            <Label Text="{Binding CurrentConditions.MaxTemperature, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Large"/>
-            <Label Margin="5,0,0,0" Text="{Binding CurrentConditions.MinTemperature, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small"/>
-        </StackLayout>-->
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="{Binding CurrentConditionsMain.temp_max, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Large"/>
+            <Label Margin="5,0,0,0" Text="{Binding CurrentConditionsMain.temp_min, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small"/>
 
-        <Label Grid.ColumnSpan="2" Grid.Row="3" FontAttributes="Bold" Text="{Binding CurrentConditions.Conditions}" HorizontalOptions="Center" VerticalOptions="Start" FontSize="Medium"/>
-        <Label Grid.ColumnSpan="2" Grid.Row="4"  Text="{Binding CurrentConditions.TimeStamp, Converter={StaticResource UpdatedLabelConverter}}" HorizontalOptions="Center" VerticalOptions="Start" FontSize="Micro"/>
+            <!--Text="{Binding CurrentConditions.TimeStamp, Converter={StaticResource UpdatedLabelConverter}}" -->
+            
+        </StackLayout>
 
-        <Button Text="Celcius" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" BorderColor="Blue" Clicked="Handle_Clicked_C" />
-        <Button Text="Fahrenheit" Grid.Column="1" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" BorderColor="Blue" Clicked="Handle_Clicked_F"/>
+        <Label Grid.ColumnSpan="2" 
+            Grid.Row="3" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Center"
+            VerticalOptions="Start" 
+            FontSize="Medium"
+            Text="{Binding CurrentConditionsWeather.main}"/>
+        <Label Grid.ColumnSpan="2" 
+            Grid.Row="4" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Start" 
+            FontSize="Micro"/>
+
+        <Button Text="Celcius" 
+            Grid.Column="0" 
+            Grid.Row="6" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Command="{Binding ToCelcius}"/>
+        <Button Text="Fahrenheit" 
+            Grid.Column="1" 
+            Grid.Row="6" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Clicked="Handle_Clicked_F"/>
         
         <ActivityIndicator Color="{StaticResource AppAccentColor}" VerticalOptions="Center" HorizontalOptions="Center" Grid.RowSpan="5" IsRunning="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsVisible="{Binding IsBusy}">
             <ActivityIndicator.WidthRequest>

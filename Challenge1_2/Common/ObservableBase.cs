@@ -29,10 +29,10 @@ namespace Challenge1_2.Common
         /// desired value.</returns>
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
         {
-            if (object.Equals(storage, value)) return false;
+            if (Equals(storage, value)) return false;
 
             storage = value;
-            this.OnPropertyChanged(propertyName);
+            OnPropertyChanged(propertyName);
             return true;
         }
 

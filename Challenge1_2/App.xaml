@@ -18,7 +18,9 @@
             
             <Color x:Key="AppBaseColor">#003366</Color>
             <Color x:Key="AppAccentColor">#00BFFF</Color>
-
+            <Font x:Key="BigCase">64</Font>
+            <Font x:Key="MediumCase">36</Font>
+            
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

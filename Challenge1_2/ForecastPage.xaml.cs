@@ -12,7 +12,7 @@ namespace Challenge1_2
 		protected override async void OnAppearing()
 		{
 			BindingContext = App.ViewModel;
-			await App.ViewModel.RefreshForecastAsync();
+            await App.ViewModel.RefreshForecastAsync();
 			base.OnAppearing();
 		}
     }

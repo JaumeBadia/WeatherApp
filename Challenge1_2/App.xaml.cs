@@ -6,8 +6,6 @@ namespace Challenge1_2
     {
 		public static MainViewModel ViewModel;
 
-        public static object RegistrationCode { get; internal set; }
-
         public App()
         {
             InitializeComponent();

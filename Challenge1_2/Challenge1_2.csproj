@@ -90,6 +90,8 @@
     <Compile Include="Common\Converters\TempConverter.cs" />
     <Compile Include="Common\Converters\IconToUrlConverter.cs" />
     <Compile Include="Common\Converters\BooleanToFalseConverter.cs" />
+    <Compile Include="ViewModels\ChangedViewModel.cs" />
+    <Compile Include="Models\WeatherJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -113,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Images\London1.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Converters\" />
