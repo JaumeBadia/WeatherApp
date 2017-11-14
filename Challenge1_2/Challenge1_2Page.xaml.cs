@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Challenge1_2
 {
@@ -18,22 +15,15 @@ namespace Challenge1_2
             BindingContext = App.ViewModel;
 
             if (App.ViewModel.NeedsRefresh)
+            {
                 await App.ViewModel.RefreshCurrentConditionsAsync();
 
+
+
+            }
+
+
             base.OnAppearing();
-        }
-
-
-
-        void Handle_Clicked_F(object sender, EventArgs e)
-        {
-            temp.Text = "F";
-        }
-
-        void Handle_Clicked_C(object sender, EventArgs e)
-        {
-            temp.Text = "C";
-
         }
     }
 }

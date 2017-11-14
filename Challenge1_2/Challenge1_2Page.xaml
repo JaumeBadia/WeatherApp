@@ -41,22 +41,34 @@
                 HeightRequest="100" 
                 WidthRequest="100" 
                 Source="{Binding CurrentConditionsWeather.icon , Converter={StaticResource IconToUrlConverter}}" />
-            <Label Text="{Binding CurrentConditionsMain.temp, Converter={StaticResource ZeroToPlaceholderConverter}}" 
+            <Label Text="{Binding ChangedConditions.temp, Converter={StaticResource ZeroToPlaceholderConverter}}" 
                 HorizontalOptions="Start" 
                 VerticalOptions="Center" 
-                FontSize="64"/>
+                FontSize="64"
+                x:name="tempmain"/>
             <Label Text="°" 
                 FontSize="64"/>
-            <Label x:Name="temp" 
-                Text="C" 
+            <Label x:Name="temp"
+                Text="{Binding ChangedConditions.grades}"
                 VerticalOptions="Center" 
                 FontSize="32"/>
             
         </StackLayout>
 
-        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
-            <Label Text="{Binding CurrentConditionsMain.temp_max, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Large"/>
-            <Label Margin="5,0,0,0" Text="{Binding CurrentConditionsMain.temp_min, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small"/>
+        <StackLayout Grid.Row="4" 
+            Grid.ColumnSpan="2" 
+            Orientation="Horizontal" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Start">
+            <Label Text="{Binding ChangedConditions.temp_max, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" 
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" 
+                FontSize="Large"/>
+            <Label Margin="5,0,0,0"
+                Text="{Binding ChangedConditions.temp_min, Converter={StaticResource ZeroToPlaceholderConverter}, ConverterParameter=°}" 
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" 
+                FontSize="Small"/>
 
             <!--Text="{Binding CurrentConditions.TimeStamp, Converter={StaticResource UpdatedLabelConverter}}" -->
             
@@ -80,13 +92,13 @@
             Grid.Row="6" 
             VerticalOptions="Center" 
             HorizontalOptions="Center"
-            Command="{Binding ToCelcius}"/>
+            Command="{Binding ChangedConditions.TempChangedC}"/>
         <Button Text="Fahrenheit" 
             Grid.Column="1" 
             Grid.Row="6" 
             VerticalOptions="Center" 
             HorizontalOptions="Center"
-            Clicked="Handle_Clicked_F"/>
+            Command="{Binding ChangedConditions.TempChangedF}"/>
         
         <ActivityIndicator Color="{StaticResource AppAccentColor}" VerticalOptions="Center" HorizontalOptions="Center" Grid.RowSpan="5" IsRunning="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsVisible="{Binding IsBusy}">
             <ActivityIndicator.WidthRequest>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Challenge1_2.Models;
 using Xamarin.Forms;
 
 namespace Challenge1_2
@@ -21,6 +22,7 @@ namespace Challenge1_2
 		{
 			if (App.ViewModel == null) 
                 App.ViewModel = new MainViewModel();
+
 		}
 
 		async void ViewForecastClicked(object sender, EventArgs e)

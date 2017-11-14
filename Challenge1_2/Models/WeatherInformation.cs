@@ -224,8 +224,8 @@ namespace Challenge1_2.Models
                 set { SetProperty(ref _temp, value); } 
             }
 
-            int _pressure;
-            public int pressure     
+            double _pressure;
+            public double pressure     
             { 
                 get {return _pressure;} 
                 set { SetProperty(ref _pressure, value); } 

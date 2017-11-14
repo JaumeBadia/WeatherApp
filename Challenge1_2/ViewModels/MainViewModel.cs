@@ -5,6 +5,7 @@ using Plugin.Geolocator.Abstractions;
 using Challenge1_2.Helpers;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System;
 
 namespace Challenge1_2
 {
@@ -29,6 +30,7 @@ namespace Challenge1_2
             CurrentConditionsWind = new WeatherInformation.Wind();
             CurrentConditionsClouds = new WeatherInformation.Clouds();
             CurrentConditionsSys = new WeatherInformation.Sys();
+            ChangedConditions = new ChangedViewModel(CurrentConditionsMain);
         }
 
         #endregion
@@ -117,6 +119,13 @@ namespace Challenge1_2
         {
             get { return _currentConditionsSys; }
             set { SetProperty(ref _currentConditionsSys, value); }
+        }
+
+        ChangedViewModel _changedConditions;
+        public ChangedViewModel ChangedConditions
+        {
+            get { return _changedConditions; }
+            set { SetProperty(ref _changedConditions, value); }
         }
 
         bool _needsRefresh;
@@ -221,6 +230,11 @@ namespace Challenge1_2
             CurrentConditionsMain.temp = resultsResponse.main.temp;
             //CurrentConditions.Humidity = results.Humidity;
             CurrentConditionsResponse.dt = resultsResponse.dt;
+
+            ChangedConditions.temp_max = Convert.ToInt32(CurrentConditionsMain.temp_max - 273.15);
+            ChangedConditions.temp_min = Convert.ToInt32(CurrentConditionsMain.temp_min - 273.15);
+            ChangedConditions.temp = Convert.ToInt32(CurrentConditionsMain.temp - 273.15);
+            ChangedConditions.grades = "C";
 
             IsBusy = false;
         }

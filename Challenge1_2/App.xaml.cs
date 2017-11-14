@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Challenge1_2.Models;
+using Xamarin.Forms;
 
 namespace Challenge1_2
 {
